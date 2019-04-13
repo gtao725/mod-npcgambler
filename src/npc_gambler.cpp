@@ -74,18 +74,18 @@ This code and content is released under the [GNU AGPL v3](https://github.com/aze
 bool GamblerNPCAnnounce = true;
 
 // Module Configuration Values
-uint32 Bet1 = 1;
-uint32 Bet2 = 2;
-uint32 Bet3 = 3;
-uint32 Bet4 = 4;
-uint32 Bet5 = 5;
-uint32 Jackpot = 50;
-uint32 MoneyType = 3;
-uint32 EnableGold = 1;
-uint32 EnableSilver = 1;
-uint32 EnableCopper = 1;
-uint32 GamblerEmoteSpell;
-uint32 GamblerMessageTimer;
+uint64 Bet1 = 1;
+uint64 Bet2 = 2;
+uint64 Bet3 = 3;
+uint64 Bet4 = 4;
+uint64 Bet5 = 5;
+uint64 Jackpot = 50;
+uint64 MoneyType = 3;
+uint64 EnableGold = 1;
+uint64 EnableSilver = 1;
+uint64 EnableCopper = 1;
+uint64 GamblerEmoteSpell;
+uint64 GamblerMessageTimer;
 
 class GamblerConfig : public WorldScript
 {
@@ -162,17 +162,17 @@ public:
     gamble_npc() : CreatureScript("gamble_npc") { }
 
     // Money
-    uint32 Pocket = 0;
-    uint32 BetAmount = 0;
-    uint32 WinAmount = 0;
-    uint32 PlayerMoney = 0;
-    uint32 JackpotAmount = 0;
+    uint64 Pocket = 0;
+    uint64 BetAmount = 0;
+    uint64 WinAmount = 0;
+    uint64 PlayerMoney = 0;
+    uint64 JackpotAmount = 0;
     string MoneyTypeText = "Electrum";
 
     // Bets
-    uint32 Bets = 0;		// # of bets placed
-    uint32 Wins = 0;		// # of wins
-    uint32 Losses = 0;		// # of losses
+    uint64 Bets = 0;		// # of bets placed
+    uint64 Wins = 0;		// # of wins
+    uint64 Losses = 0;		// # of losses
 
     // Calculate Gamble Amounts
     int CalcMoney(int Copper, int bet)
@@ -254,7 +254,7 @@ public:
     }
 
     // Gossip Select
-    bool OnGossipSelect(Player * player, Creature * creature, uint32 sender, uint32 uiAction)
+    bool OnGossipSelect(Player * player, Creature * creature, uint64 sender, uint64 uiAction)
     {
         // Strings
         std::ostringstream Option1;
@@ -386,12 +386,12 @@ public:
     }
 
     // Gossip Select Gold
-    bool OnGossipSelectMoney(Player* player, Creature* creature, uint32 sender, uint32 uiAction, uint32 bet)
+    bool OnGossipSelectMoney(Player* player, Creature* creature, uint64 sender, uint64 uiAction, uint64 bet)
     {
         player->PlayerTalkClass->ClearMenus();
 
         // Dice Roll
-        uint32 Roll = 0;
+        uint64 Roll = 0;
 
         // Generate a "random" number	
         Roll = urand(1, 100);
@@ -488,8 +488,8 @@ public:
     {
         NPC_PassiveAI(Creature * creature) : ScriptedAI(creature) { }
 
-        uint32 Choice;
-        uint32 MessageTimer;
+        uint64 Choice;
+        uint64 MessageTimer;
 
         // Called once when client is loaded
         void Reset()
@@ -499,7 +499,7 @@ public:
         }
 
         // Called at World update tick
-        void UpdateAI(const uint32 diff)
+        void UpdateAI(const uint64 diff)
         {
             if (MessageTimer <= diff)
             {
